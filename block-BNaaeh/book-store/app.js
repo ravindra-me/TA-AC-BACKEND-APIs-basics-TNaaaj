@@ -10,6 +10,7 @@ var Comment = require('./models/Comment');
 
 var indexRouter = require("./routes/index");
 var booksRouter = require("./routes/books");
+var commentRouter = require("./routes/comment");
 
 mongoose.connect(
   'mongodb://localhost/bookStore-api',
@@ -40,7 +41,8 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api", indexRouter);
-app.use("/api/books", booksRouter);
+app.use("/api/v1/books", booksRouter);
+app.use('/api/v2/books', commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
