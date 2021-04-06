@@ -8,7 +8,7 @@ let book = new Schema(
     discription: String,
     author: { type: String },
     category: {type:String},
-    tags: {type:String},
+    tags: [{type:String}],
     commentId:[{type:Schema.Types.ObjectId , ref:"Comment"}],
   },
   {
