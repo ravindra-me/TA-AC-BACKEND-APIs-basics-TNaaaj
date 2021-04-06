@@ -23,14 +23,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    const book = await Book.findById(req.params.id).populate("commentId");
-    res.status(200).json({ book: book });
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+
 
 router.put("/:id", async (req, res) => {
   try {
@@ -96,23 +89,32 @@ router.get("/author", async (req, res) => {
   }
 });
 
-router.get("/tags", async (req, res) => {
+// router.get("/tags", async (req, res) => {
+//   try {
+//     const tags = await Book.distinct("tags");
+//     res.json({ tags });
+//   } catch (e) {
+//     res.status(400).send(e);
+//   }
+// });
+
+// router.get("/tag", async (req, res) => {
+//   try {
+//     const books = await Book.aggregate([{ $match: { tags: req.params.tag } }]);
+//     res.json({ books });
+//   } catch (e) {
+//     res.status(400).send(e);
+//   }
+// })
+
+
+router.get("/:id", async (req, res) => {
   try {
-    const tags = await Book.distinct("tags");
-    res.json({ tags });
+    const book = await Book.findById(req.params.id).populate("commentId");
+    res.status(200).json({ book: book });
   } catch (e) {
     res.status(400).send(e);
   }
 });
-
-router.get("/tag", async (req, res) => {
-  try {
-    const books = await Book.aggregate([{ $match: { tags: req.params.tag } }]);
-    res.json({ books });
-  } catch (e) {
-    res.status(400).send(e);
-  }
-})
-
 
 module.exports = router;
